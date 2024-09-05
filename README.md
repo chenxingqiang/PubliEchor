@@ -10,14 +10,14 @@
 ![](https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![](https://badges.aleen42.com/src/vitejs.svg)
 
-![GitHub action badge](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/actions/workflows/build-zip.yml/badge.svg)
-![GitHub action badge](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/actions/workflows/lint.yml/badge.svg)
+![GitHub action badge](https://github.com/chenxingqiang/PubliEchor/actions/workflows/build-zip.yml/badge.svg)
+![GitHub action badge](https://github.com/chenxingqiang/PubliEchor/actions/workflows/lint.yml/badge.svg)
 
-<img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/Jonghakseo/chrome-extension-boilerplate-react-viteFactions&count_bg=%23#222222&title_bg=%23#454545&title=😀&edge_flat=true" alt="hits"/>
+<img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/chenxingqiang/PubliEchorFactions&count_bg=%23#222222&title_bg=%23#454545&title=😀&edge_flat=true" alt="hits"/>
 <a href="https://discord.gg/4ERQ6jgV9a" target="_blank"><img src="https://discord.com/api/guilds/1263404974830915637/widget.png"/></a>
 
 > This boilerplate
-> has [Legacy version](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/tree/legacy)
+> has [Legacy version](https://github.com/chenxingqiang/PubliEchor/tree/legacy)
 
 </div>
 
@@ -27,26 +27,32 @@
 > [!TIP]
 > Share storage state between all pages
 >
-> https://github.com/user-attachments/assets/3b8e189f-6443-490e-a455-4f9570267f8c
+> <https://github.com/user-attachments/assets/3b8e189f-6443-490e-a455-4f9570267f8c>
 
 ## Table of Contents
 
-- [Intro](#intro)
-- [Features](#features)
-- [Structure](#structure)
-    - [ChromeExtension](#chrome-extension)
-    - [Packages](#packages)
-    - [Pages](#pages)
-- [Getting started](#getting-started)
-    - [Chrome](#getting-started-chrome)
-    - [Firefox](#getting-started-firefox)
-- [Install dependency](#install-dependency)
-  - [For root](#install-dependency-for-root)
-  - [For module](#install-dependency-for-module)
-- [Community](#community)
-- [Reference](#reference)
-- [Star History](#starhistory)
-- [Contributors](#contributors)
+- [Table of Contents](#table-of-contents)
+- [Intro ](#intro-)
+- [Features ](#features-)
+- [Getting started: ](#getting-started-)
+  - [And then, depending on needs](#and-then-depending-on-needs)
+  - [For Chrome: ](#for-chrome-)
+  - [For Firefox: ](#for-firefox-)
+- [Install dependency for turborepo: ](#install-dependency-for-turborepo-)
+  - [For root: ](#for-root-)
+  - [For module: ](#for-module-)
+- [Env Variables](#env-variables)
+    - [If you want to set it for each package independently](#if-you-want-to-set-it-for-each-package-independently)
+    - [Remember you can't use global and local at the same time for the same package(It will be overwritten)](#remember-you-cant-use-global-and-local-at-the-same-time-for-the-same-packageit-will-be-overwritten)
+- [Structure ](#structure-)
+  - [ChromeExtension ](#chromeextension-)
+  - [Packages ](#packages-)
+  - [Pages ](#pages-)
+- [Community ](#community-)
+- [Reference ](#reference-)
+- [Star History ](#star-history-)
+- [Contributors ](#contributors-)
+- [Special Thanks To](#special-thanks-to)
 
 ## Intro <a name="intro"></a>
 
@@ -73,12 +79,12 @@ This boilerplate is made for creating chrome extensions using React and Typescri
 3. Install pnpm globally: `npm install -g pnpm` (check your node version >= 18.12.0)
 4. Run `pnpm install`
 
-### And then, depending on needs:
+### And then, depending on needs
 
 ### For Chrome: <a name="getting-started-chrome"></a>
 
 1. Run:
-    - Dev: `pnpm dev` (On windows, you should run as administrator. [(Issue#456)](https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/issues/456)
+    - Dev: `pnpm dev` (On windows, you should run as administrator. [(Issue#456)](https://github.com/chenxingqiang/PubliEchor/issues/456)
     - Prod: `pnpm build`
 2. Open in browser - `chrome://extensions`
 3. Check - `Developer mode`
@@ -97,15 +103,17 @@ This boilerplate is made for creating chrome extensions using React and Typescri
 <h3>
 <i>Remember in firefox you add plugin in temporary mode, that's mean it'll disappear after each browser close.
 
-You have to do it on every browser launch.</i> 
+You have to do it on every browser launch.</i>
 </h3>
 
 ## Install dependency for turborepo: <a name="install-dependency"></a>
 
 ### For root: <a name="install-dependency-for-root"></a>
+
 1. Run `pnpm i <package> -w`
 
 ### For module: <a name="install-dependency-for-module"></a>
+
 1. Run `pnpm i <package> -F <module name>`
 
 `package` - Name of the package you want to install e.g. `nodemon` \
@@ -118,7 +126,7 @@ You have to do it on every browser launch.</i>
 3. Add this key with type for value to `vite-end.d.ts` (root) to `ImportMetaEnv`
 4. Then you can use it with `import.meta.env.{YOUR_KEY}` like with standard [Vite Env](https://vitejs.dev/guide/env-and-mode)
 
-#### If you want to set it for each package independently:
+#### If you want to set it for each package independently
 
 1. Create `.env` inside that package
 2. Open related `vite.config.mts` and add `envDir: '.'` at the end of this config
@@ -151,7 +159,7 @@ Some shared packages
 - `tsconfig` - shared tsconfig for entire project
 - `ui` - here's a function to merge your tailwind config with global one, and you can save components here
 - `vite-config` - shared vite config for entire project
-- `zipper` - By ```pnpm zip``` you can pack ```dist``` folder into ```extension.zip``` inside newly created ```dist-zip``` 
+- `zipper` - By ```pnpm zip``` you can pack ```dist``` folder into ```extension.zip``` inside newly created ```dist-zip```
 
 ### Pages <a name="pages"></a>
 
@@ -191,11 +199,11 @@ Also, suggest new features or share any challenges you've faced while developing
 
 ## Star History <a name="starhistory"></a>
 
-<a href="https://star-history.com/#Jonghakseo/chrome-extension-boilerplate-react-vite&Date">
+<a href="https://star-history.com/#chenxingqiang/PubliEchor&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Jonghakseo/chrome-extension-boilerplate-react-vite&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Jonghakseo/chrome-extension-boilerplate-react-vite&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Jonghakseo/chrome-extension-boilerplate-react-vite&type=Date" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=chenxingqiang/PubliEchor&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=chenxingqiang/PubliEchor&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=chenxingqiang/PubliEchor&type=Date" />
  </picture>
 </a>
 
@@ -203,8 +211,8 @@ Also, suggest new features or share any challenges you've faced while developing
 
 This Boilerplate is made possible thanks to all of its contributors.
 
-<a href="https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/graphs/contributors">
-  <img width="500px" src="https://contrib.rocks/image?repo=Jonghakseo/chrome-extension-boilerplate-react-vite" alt="All Contributors"/>
+<a href="https://github.com/chenxingqiang/PubliEchor/graphs/contributors">
+  <img width="500px" src="https://contrib.rocks/image?repo=chenxingqiang/PubliEchor" alt="All Contributors"/>
 </a>
 
 ---
@@ -216,4 +224,4 @@ This Boilerplate is made possible thanks to all of its contributors.
 
 ---
 
-Made by [Jonghakseo](https://jonghakseo.github.io/)
+Made by [chenxingqiang](https://chenxingqiang.github.io/)

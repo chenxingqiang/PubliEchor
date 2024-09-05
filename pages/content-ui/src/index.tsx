@@ -1,9 +1,9 @@
-import { createRoot } from 'react-dom/client';
 import App from '@src/app';
+import { createRoot } from 'react-dom/client';
 import tailwindcssOutput from '../dist/tailwind-output.css?inline';
 
 const root = document.createElement('div');
-root.id = 'chrome-extension-boilerplate-react-vite-content-view-root';
+root.id = 'PubliEchor-content-view-root';
 
 document.body.append(root);
 

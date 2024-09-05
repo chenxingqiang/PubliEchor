@@ -1,12 +1,12 @@
-import { createRoot } from 'react-dom/client';
 import App from '@lib/app';
+import { createRoot } from 'react-dom/client';
 // eslint-disable-next-line
 // @ts-ignore
 import injectedStyle from '@lib/index.css?inline';
 
 export function mount() {
   const root = document.createElement('div');
-  root.id = 'chrome-extension-boilerplate-react-vite-runtime-content-view-root';
+  root.id = 'PubliEchor-runtime-content-view-root';
 
   document.body.append(root);
 

@@ -1,0 +1,9 @@
+{
+  "extends": "../../packages/tsconfig/app.json",
+  "include": ["src"],
+  "references": [
+    {
+      "path": "../../packages/supabase-client"
+    }
+  ]
+}
