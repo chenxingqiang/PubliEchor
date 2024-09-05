@@ -1,24 +1,81 @@
-import '@src/Options.css';
-import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
-import { exampleThemeStorage } from '@extension/storage';
-import { Button } from '@extension/ui';
+import React, { useState, useEffect } from 'react';
+import { getUserSettings, updateUserSettings, UserSettings } from '@packages/supabase-client';
 
-const Options = () => {
-  const theme = useStorage(exampleThemeStorage);
-  const isLight = theme === 'light';
-  const logo = isLight ? 'options/logo_horizontal.svg' : 'options/logo_horizontal_dark.svg';
+const Options: React.FC = () => {
+  const [settings, setSettings] = useState<UserSettings | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const userId = await getCurrentUserId();
+        if (!userId) throw new Error('User not authenticated');
+        const userSettings = await getUserSettings(userId);
+        setSettings(userSettings);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSettings();
+  }, []);
+
+  const handleSettingChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!settings) return;
+    const { name, value } = e.target;
+    const updatedSettings = { ...settings, [name]: value };
+    setSettings(updatedSettings);
+    try {
+      await updateUserSettings(updatedSettings);
+    } catch (error) {
+      setError('Failed to update settings');
+    }
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!settings) return <div>No settings found</div>;
 
   return (
-    <div className={`App-container ${isLight ? 'text-gray-900 bg-slate-50' : 'text-gray-100 bg-gray-800'}`}>
-      <img src={chrome.runtime.getURL(logo)} className="App-logo" alt="logo" />
-      <p>
-        Edit <code>pages/options/src/Options.tsx</code>
-      </p>
-      <Button className="mt-4" onClick={exampleThemeStorage.toggle} theme={theme}>
-        Toggle theme
-      </Button>
+    <div>
+      <h1>PubliEchor Settings</h1>
+      <form>
+        <label>
+          Default search count:
+          <input
+            type="number"
+            name="default_search_count"
+            value={settings.default_search_count}
+            onChange={handleSettingChange}
+          />
+        </label>
+        <label>
+          Minimum year:
+          <input type="number" name="min_year" value={settings.min_year || ''} onChange={handleSettingChange} />
+        </label>
+        <label>
+          Maximum year:
+          <input type="number" name="max_year" value={settings.max_year || ''} onChange={handleSettingChange} />
+        </label>
+        <label>
+          Preferred languages (comma-separated):
+          <input
+            type="text"
+            name="preferred_languages"
+            value={settings.preferred_languages.join(',')}
+            onChange={e =>
+              handleSettingChange({
+                ...e,
+                target: { ...e.target, value: e.target.value.split(',') },
+              })
+            }
+          />
+        </label>
+      </form>
     </div>
   );
 };
 
-export default withErrorBoundary(withSuspense(Options, <div> Loading ... </div>), <div> Error Occur </div>);
+export default Options;

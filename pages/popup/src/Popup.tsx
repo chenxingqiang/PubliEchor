@@ -1,63 +1,63 @@
-import '@src/Popup.css';
-import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
-import { exampleThemeStorage } from '@extension/storage';
-import type { ComponentPropsWithoutRef } from 'react';
+// pages/popup/src/Popup.tsx
 
-const Popup = () => {
-  const theme = useStorage(exampleThemeStorage);
-  const isLight = theme === 'light';
-  const logo = isLight ? 'popup/logo_vertical.svg' : 'popup/logo_vertical_dark.svg';
+import React, { useState, useEffect } from 'react';
+import { getUserSettings, getSearchQueries } from '@packages/supabase-client';
+import Settings from './components/Settings';
+import SearchResults from './components/SearchResults';
+import { getCurrentUserId } from '../../chrome-extension/lib/background/auth';
 
-  const injectContentScript = async () => {
-    const [tab] = await chrome.tabs.query({ currentWindow: true, active: true });
+const Popup: React.FC = () => {
+  const [userId, setUserId] = useState<string | null>(null);
+  const [settings, setSettings] = useState(null);
+  const [queries, setQueries] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-    await chrome.scripting
-      .executeScript({
-        target: { tabId: tab.id! },
-        files: ['/content-runtime/index.iife.js'],
-      })
-      .catch(err => {
-        if (err.message.includes('Cannot access a chrome:// URL')) {
-          alert('You cannot inject script here!');
+  useEffect(() => {
+    const initializePopup = async () => {
+      try {
+        setLoading(true);
+        const currentUserId = await getCurrentUserId();
+        if (!currentUserId) {
+          throw new Error('User not authenticated');
         }
-      });
-  };
+        setUserId(currentUserId);
+
+        const [userSettings, userQueries] = await Promise.all([
+          getUserSettings(currentUserId),
+          getSearchQueries(currentUserId),
+        ]);
+
+        setSettings(userSettings);
+        setQueries(userQueries);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initializePopup();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
-    <div className={`App ${isLight ? 'bg-slate-50' : 'bg-gray-800'}`}>
-      <header className={`App-header ${isLight ? 'text-gray-900' : 'text-gray-100'}`}>
-        <img src={chrome.runtime.getURL(logo)} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>pages/popup/src/Popup.tsx</code>
-        </p>
-        <button
-          className={
-            'font-bold mt-4 py-1 px-4 rounded shadow hover:scale-105 ' +
-            (isLight ? 'bg-blue-200 text-black' : 'bg-gray-700 text-white')
-          }
-          onClick={injectContentScript}>
-          Click to inject Content Script
-        </button>
-        <ToggleButton>Toggle theme</ToggleButton>
-      </header>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">PubliEchor</h1>
+      <Settings settings={settings} onUpdate={setSettings} />
+      <h2 className="text-xl font-semibold mt-4 mb-2">Recent Searches</h2>
+      {queries.map(query => (
+        <SearchResults key={query.id} queryId={query.id} />
+      ))}
     </div>
   );
 };
 
-const ToggleButton = (props: ComponentPropsWithoutRef<'button'>) => {
-  const theme = useStorage(exampleThemeStorage);
-  return (
-    <button
-      className={
-        props.className +
-        ' ' +
-        'font-bold mt-4 py-1 px-4 rounded shadow hover:scale-105 ' +
-        (theme === 'light' ? 'bg-white text-black shadow-black' : 'bg-black text-white')
-      }
-      onClick={exampleThemeStorage.toggle}>
-      {props.children}
-    </button>
-  );
-};
-
-export default withErrorBoundary(withSuspense(Popup, <div> Loading ... </div>), <div> Error Occur </div>);
+export default Popup;

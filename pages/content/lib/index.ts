@@ -1,5 +1,10 @@
-import { toggleTheme } from '@lib/toggleTheme';
+// pages/content/lib/index.ts
 
-console.log('content script loaded');
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'getSelectedText') {
+    const selectedText = window.getSelection()?.toString() || '';
+    sendResponse({ selectedText });
+  }
+});
 
-void toggleTheme();
+chrome.runtime.sendMessage({ action: 'addContextMenu' });
