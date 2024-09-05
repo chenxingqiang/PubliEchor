@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite';
 import { watchRebuildPlugin } from '@extension/hmr';
 import react from '@vitejs/plugin-react-swc';
 import deepmerge from 'deepmerge';
+import { defineConfig } from 'vite';
 import { isDev, isProduction } from './env.mjs';
 
 export const watchOption = isDev

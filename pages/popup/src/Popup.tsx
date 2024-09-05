@@ -1,10 +1,10 @@
 // pages/popup/src/Popup.tsx
 
-import React, { useState, useEffect } from 'react';
-import { getUserSettings, getSearchQueries } from '@packages/supabase-client';
-import Settings from './components/Settings';
-import SearchResults from './components/SearchResults';
+import { getSearchQueries, getUserSettings } from '@packages/supabase-client';
+import React, { useEffect, useState } from 'react';
 import { getCurrentUserId } from '../../chrome-extension/lib/background/auth';
+import SearchResults from './components/SearchResults';
+import Settings from './components/Settings';
 
 const Popup: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);

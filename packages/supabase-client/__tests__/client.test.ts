@@ -1,5 +1,4 @@
-import { createUser, getUser } from '../src/client';
-import { supabase } from '../src/client';
+import { createUser, getUser, supabase } from '../src/client';
 
 jest.mock('../src/client', () => ({
   supabase: {

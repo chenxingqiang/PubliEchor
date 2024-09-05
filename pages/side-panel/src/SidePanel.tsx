@@ -1,6 +1,6 @@
-import '@src/SidePanel.css';
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared';
 import { exampleThemeStorage } from '@extension/storage';
+import '@src/SidePanel.css';
 import type { ComponentPropsWithoutRef } from 'react';
 
 const SidePanel = () => {

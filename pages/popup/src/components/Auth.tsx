@@ -1,7 +1,7 @@
 // pages/popup/src/components/Auth.tsx
 
-import React, { useState } from 'react';
 import { supabase } from '@packages/supabase-client';
+import React, { useState } from 'react';
 
 const Auth: React.FC = () => {
   const [email, setEmail] = useState('');

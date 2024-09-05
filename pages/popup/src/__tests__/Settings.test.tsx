@@ -1,7 +1,6 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Settings from '../components/Settings';
 import { getUserSettings, updateUserSettings } from '@packages/supabase-client';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import Settings from '../components/Settings';
 
 jest.mock('@packages/supabase-client', () => ({
   getUserSettings: jest.fn(),

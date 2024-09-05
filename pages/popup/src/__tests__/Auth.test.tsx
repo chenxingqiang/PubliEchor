@@ -1,9 +1,8 @@
 // pages/popup/src/__tests__/Auth.test.tsx
 
-import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import Auth from '../components/Auth';
 import { supabase } from '@packages/supabase-client';
+import { fireEvent, render, waitFor } from '@testing-library/react';
+import Auth from '../components/Auth';
 
 jest.mock('@packages/supabase-client', () => ({
   supabase: {

@@ -1,9 +1,8 @@
 // pages/popup/src/__tests__/DataExport.test.tsx
 
-import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import DataExport from '../components/DataExport';
 import { exportUserData } from '@packages/supabase-client';
+import { fireEvent, render, waitFor } from '@testing-library/react';
+import DataExport from '../components/DataExport';
 
 jest.mock('@packages/supabase-client', () => ({
   exportUserData: jest.fn(),

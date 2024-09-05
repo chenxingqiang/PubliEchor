@@ -1,7 +1,7 @@
 // pages/popup/src/components/DataExport.tsx
 
-import React, { useState } from 'react';
 import { exportUserData } from '@packages/supabase-client';
+import React, { useState } from 'react';
 
 const DataExport: React.FC = () => {
   const [loading, setLoading] = useState(false);

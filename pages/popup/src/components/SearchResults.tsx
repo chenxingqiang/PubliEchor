@@ -1,7 +1,7 @@
 // pages/popup/src/components/SearchResults.tsx
 
-import React, { useState, useEffect } from 'react';
-import { getSearchResults, getAuthorRelationships, SearchResult, AuthorRelationship } from '@packages/supabase-client';
+import { AuthorRelationship, getAuthorRelationships, getSearchResults, SearchResult } from '@packages/supabase-client';
+import React, { useEffect, useState } from 'react';
 
 const SearchResults: React.FC<{ queryId: string }> = ({ queryId }) => {
   const [results, setResults] = useState<SearchResult[]>([]);

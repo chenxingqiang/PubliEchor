@@ -68,11 +68,11 @@ CREATE POLICY "Users can only access their own search queries" ON SEARCH_QUERIES
 CREATE POLICY "Users can only access their own search results" ON SEARCH_RESULTS
   FOR ALL USING (AUTH.UID() = (
     SELECT
-                  USER_ID
+                                             USER_ID
     FROM
-                  SEARCH_QUERIES
+                                             SEARCH_QUERIES
     WHERE
-                  ID = SEARCH_RESULTS.QUERY_ID
+                                             ID = SEARCH_RESULTS.QUERY_ID
 ));
 
 CREATE POLICY "All users can access author relationships" ON AUTHOR_RELATIONSHIPS

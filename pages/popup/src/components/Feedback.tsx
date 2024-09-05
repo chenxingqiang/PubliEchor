@@ -1,6 +1,6 @@
 // pages/popup/src/components/Feedback.tsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface FeedbackProps {
   message: string;

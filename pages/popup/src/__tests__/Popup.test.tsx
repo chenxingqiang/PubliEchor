@@ -1,7 +1,6 @@
-import React from 'react';
+import { getSearchQueries, getUserSettings } from '@packages/supabase-client';
 import { render, screen, waitFor } from '@testing-library/react';
 import Popup from '../Popup';
-import { getUserSettings, getSearchQueries } from '@packages/supabase-client';
 
 // Mock the Supabase client functions
 jest.mock('@packages/supabase-client', () => ({

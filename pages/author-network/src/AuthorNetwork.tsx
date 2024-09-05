@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import { getAuthorRelationships } from '@packages/supabase-client';
+import React, { useEffect, useState } from 'react';
 import AuthorNetworkVisualization from './AuthorNetworkVisualization';
 
 interface Author {

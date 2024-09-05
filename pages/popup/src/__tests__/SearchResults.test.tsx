@@ -1,7 +1,6 @@
-import React from 'react';
+import { getSearchResults } from '@packages/supabase-client';
 import { render, screen } from '@testing-library/react';
 import SearchResults from '../components/SearchResults';
-import { getSearchResults } from '@packages/supabase-client';
 
 jest.mock('@packages/supabase-client', () => ({
   getSearchResults: jest.fn(),

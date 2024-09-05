@@ -1,7 +1,7 @@
 // chrome-extension/lib/background/scholarSearch.ts
 
+import type { SearchResult, UserSettings } from '@packages/supabase-client';
 import axios from 'axios';
-import { SearchResult, UserSettings } from '@packages/supabase-client';
 
 export async function performGoogleScholarSearch(query: string, settings: UserSettings): Promise<SearchResult[]> {
   try {

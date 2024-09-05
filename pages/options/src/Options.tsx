@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import { getUserSettings, updateUserSettings, UserSettings } from '@packages/supabase-client';
+import React, { useEffect, useState } from 'react';
 
 const Options: React.FC = () => {
   const [settings, setSettings] = useState<UserSettings | null>(null);

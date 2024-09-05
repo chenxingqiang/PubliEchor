@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { Button } from '@extension/ui';
 import { useStorage } from '@extension/shared';
 import { exampleThemeStorage } from '@extension/storage';
+import { Button } from '@extension/ui';
+import { useEffect } from 'react';
 
 export default function App() {
   const theme = useStorage(exampleThemeStorage);
